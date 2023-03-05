@@ -33,7 +33,6 @@ RUN mix local.hex --force && \
 
 # set build ENV
 ENV MIX_ENV="dev"
-ENV SECRET_KEY_BASE="5EK5bi8qzTgzu9SiF5dDwYrX65XKMBMNX4Y276IhiUxyJ3Bg6Z/5KR6ULT1TCKIY"
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
@@ -62,6 +61,8 @@ RUN mix compile
 COPY config/runtime.exs config/
 
 COPY rel rel
+
+ENV SECRET_KEY_BASE="5EK5bi8qzTgzu9SiF5dDwYrX65XKMBMNX4Y276IhiUxyJ3Bg6Z/5KR6ULT1TCKIY"
 RUN mix release
 
 # start a new build stage so that the final image will only contain
