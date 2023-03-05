@@ -62,7 +62,7 @@ COPY config/runtime.exs config/
 
 COPY rel rel
 
-ENV SECRET_KEY_BASE="5EK5bi8qzTgzu9SiF5dDwYrX65XKMBMNX4Y276IhiUxyJ3Bg6Z/5KR6ULT1TCKIY"
+RUN mix phx.gen.secret
 RUN mix release
 
 # start a new build stage so that the final image will only contain
@@ -84,6 +84,8 @@ RUN chown nobody /app
 
 # set runner ENV
 ENV MIX_ENV="prod"
+
+RUN mix phx.gen.secret
 
 # Only copy the final release from the build stage
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/website ./
