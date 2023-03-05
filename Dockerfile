@@ -32,7 +32,7 @@ RUN mix local.hex --force && \
     mix local.rebar --force
 
 # set build ENV
-ENV MIX_ENV="prod"
+ENV MIX_ENV="dev"
 ENV SECRET_KEY_BASE="5EK5bi8qzTgzu9SiF5dDwYrX65XKMBMNX4Y276IhiUxyJ3Bg6Z/5KR6ULT1TCKIY"
 
 # install mix dependencies
