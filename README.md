@@ -33,10 +33,9 @@ To start your Phoenix server:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-## Learn more about the Phoenix Framework
+Or you can just go to [`tarungunaseelan.com`](https://www.tarungunaseelan.com) to see it in action lol.
+
+## Learn more about the Phoenix Framework here:
 
   * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
   * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
