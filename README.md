@@ -1,3 +1,4 @@
+[![Elixir CI](https://github.com/txrunn/website/actions/workflows/elixir.yml/badge.svg?event=push)](https://github.com/txrunn/website/actions/workflows/elixir.yml)
 # My Personal Website
 
 This is a Phoenix web application that showcases my projects and skills as an aspiring cloud security engineer.
