@@ -1,4 +1,4 @@
-[![Elixir CI](https://github.com/txrunn/website/actions/workflows/elixir.yml/badge.svg?event=push)](https://github.com/txrunn/website/actions/workflows/elixir.yml) [![Docker Image CI](https://github.com/txrunn/website/actions/workflows/docker-image.yml/badge.svg)](https://github.com/txrunn/website/actions/workflows/docker-image.yml)
+[![Elixir CI](https://github.com/txrunn/website/actions/workflows/elixir.yml/badge.svg?event=push)](https://github.com/txrunn/website/actions/workflows/elixir.yml) [![Docker Image CI](https://github.com/txrunn/website/actions/workflows/docker-image.yml/badge.svg)](https://github.com/txrunn/website/actions/workflows/docker-image.yml) [![Sobelow](https://github.com/txrunn/website/actions/workflows/sobelow.yml/badge.svg)](https://github.com/txrunn/website/actions/workflows/sobelow.yml)
 # My Personal Website
 
 This is a Phoenix web application that showcases my projects and skills as an aspiring cloud security engineer.
