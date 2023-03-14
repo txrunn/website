@@ -1,11 +1,11 @@
 defmodule WebsiteWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
-  
+
   The components in this module use Tailwind CSS, a utility-first CSS framework.
   See the [Tailwind CSS documentation](https://tailwindcss.com) to learn how to
   customize the generated components in this module.
-  
+
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
@@ -15,18 +15,18 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders a modal.
-  
+
   ## Examples
-  
+
       <.modal id="confirm-modal">
         Are you sure?
         <:confirm>OK</:confirm>
         <:cancel>Cancel</:cancel>
       </.modal>
-  
+
   JS commands may be passed to the `:on_cancel` and `on_confirm` attributes
   for the caller to react to each button press, for example:
-  
+
       <.modal id="confirm" on_confirm={JS.push("delete")} on_cancel={JS.navigate(~p"/posts")}>
         Are you sure you?
         <:confirm>OK</:confirm>
@@ -81,13 +81,13 @@ defmodule WebsiteWeb.CoreComponents do
                   <.icon name="hero-x-mark-solid" class="w-5 h-5" />
                 </button>
               </div>
-              
+
               <div id={"#{@id}-content"}>
                 <header :if={@title != []}>
                   <h1 id={"#{@id}-title"} class="text-lg font-semibold leading-8 text-zinc-800">
                     <%= render_slot(@title) %>
                   </h1>
-                  
+
                   <p
                     :if={@subtitle != []}
                     id={"#{@id}-description"}
@@ -96,7 +96,7 @@ defmodule WebsiteWeb.CoreComponents do
                     <%= render_slot(@subtitle) %>
                   </p>
                 </header>
-                 <%= render_slot(@inner_block) %>
+                <%= render_slot(@inner_block) %>
                 <div :if={@confirm != [] or @cancel != []} class="ml-6 mb-4 flex items-center gap-5">
                   <.button
                     :for={confirm <- @confirm}
@@ -107,7 +107,7 @@ defmodule WebsiteWeb.CoreComponents do
                   >
                     <%= render_slot(confirm) %>
                   </.button>
-                  
+
                   <.link
                     :for={cancel <- @cancel}
                     phx-click={hide_modal(@on_cancel, @id)}
@@ -127,9 +127,9 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders flash notices.
-  
+
   ## Examples
-  
+
       <.flash kind={:info} flash={@flash} />
       <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
   """
@@ -162,9 +162,9 @@ defmodule WebsiteWeb.CoreComponents do
         <.icon :if={@kind == :info} name="hero-information-circle-mini" class="w-4 h-4" />
         <.icon :if={@kind == :error} name="hero-exclamation-circle-mini" class="w-4 h-4" /> <%= @title %>
       </p>
-      
+
       <p class="mt-2 text-[0.8125rem] leading-5"><%= msg %></p>
-      
+
       <button
         :if={@close}
         type="button"
@@ -179,9 +179,9 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Shows the flash group with standard titles and content.
-  
+
   ## Examples
-  
+
       <.flash_group flash={@flash} />
   """
   attr :flash, :map, required: true, doc: "the map of flash messages"
@@ -206,9 +206,9 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders a simple form.
-  
+
   ## Examples
-  
+
       <.simple_form for={@form} phx-change="validate" phx-submit="save">
         <.input field={@form[:email]} label="Email"/>
         <.input field={@form[:username]} label="Username" />
@@ -242,9 +242,9 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders a button.
-  
+
   ## Examples
-  
+
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
   """
@@ -272,13 +272,13 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders an input with label and error messages.
-  
+
   A `%Phoenix.HTML.Form{}` and field name may be passed to the input
   to build input names and error messages, or all the attributes and
   errors may be passed explicitly.
-  
+
   ## Examples
-  
+
       <.input field={@form[:email]} type="email" />
       <.input name="my-input" errors={["oh no!"]} />
   """
@@ -331,7 +331,7 @@ defmodule WebsiteWeb.CoreComponents do
           {@rest}
         /> <%= @label %>
       </label>
-      
+
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -341,7 +341,7 @@ defmodule WebsiteWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      
+
       <select
         id={@id}
         name={@name}
@@ -350,9 +350,9 @@ defmodule WebsiteWeb.CoreComponents do
         {@rest}
       >
         <option :if={@prompt} value=""><%= @prompt %></option>
-         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+        <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
-      
+
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -362,7 +362,7 @@ defmodule WebsiteWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-       <textarea
+      <textarea
         id={@id || @name}
         name={@name}
         class={[
@@ -383,7 +383,7 @@ defmodule WebsiteWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      
+
       <input
         type={@type}
         name={@name}
@@ -448,12 +448,12 @@ defmodule WebsiteWeb.CoreComponents do
         <h1 class="text-lg font-semibold leading-8 text-zinc-800">
           <%= render_slot(@inner_block) %>
         </h1>
-        
+
         <p :if={@subtitle != []} class="mt-2 text-sm leading-6 text-zinc-600">
           <%= render_slot(@subtitle) %>
         </p>
       </div>
-      
+
       <div class="flex-none"><%= render_slot(@actions) %></div>
     </header>
     """
@@ -461,9 +461,9 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc ~S"""
   Renders a table with generic styling.
-  
+
   ## Examples
-  
+
       <.table id="users" rows={@users}>
         <:col :let={user} label="id"><%= user.id %></:col>
         <:col :let={user} label="username"><%= user.username %></:col>
@@ -496,11 +496,11 @@ defmodule WebsiteWeb.CoreComponents do
         <thead class="text-left text-[0.8125rem] leading-6 text-zinc-500">
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
-            
+
             <th class="relative p-0 pb-4"><span class="sr-only"><%= gettext("Actions") %></span></th>
           </tr>
         </thead>
-        
+
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
@@ -519,7 +519,7 @@ defmodule WebsiteWeb.CoreComponents do
                 </span>
               </div>
             </td>
-            
+
             <td :if={@action != []} class="relative p-0 w-14">
               <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
                 <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-zinc-50 sm:rounded-r-xl" />
@@ -540,9 +540,9 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders a data list.
-  
+
   ## Examples
-  
+
       <.list>
         <:item title="Title"><%= @post.title %></:item>
         <:item title="Views"><%= @post.views %></:item>
@@ -558,7 +558,7 @@ defmodule WebsiteWeb.CoreComponents do
       <dl class="-my-4 divide-y divide-zinc-100">
         <div :for={item <- @item} class="flex gap-4 py-4 sm:gap-8">
           <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 text-zinc-500"><%= item.title %></dt>
-          
+
           <dd class="text-sm leading-6 text-zinc-700"><%= render_slot(item) %></dd>
         </div>
       </dl>
@@ -568,9 +568,9 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders a back navigation link.
-  
+
   ## Examples
-  
+
       <.back navigate={~p"/posts"}>Back to posts</.back>
   """
   attr :navigate, :any, required: true
@@ -591,19 +591,19 @@ defmodule WebsiteWeb.CoreComponents do
 
   @doc """
   Renders a [Hero Icon](https://heroicons.com).
-  
+
   Hero icons come in three styles – outline, solid, and mini.
   By default, the outline style is used, but solid an mini may
   be applied by using the `-solid` and `-mini` suffix.
-  
+
   You can customize the size and colors of the icons by setting
   width, height, and background color classes.
-  
+
   Icons are extracted from your `priv/hero_icons` directory and bundled
   within your compiled app.css by the plugin in your `assets/tailwind.config.js`.
-  
+
   ## Examples
-  
+
       <.icon name="hero-cake" />
       <.icon name="hero-cake-solid" />
       <.icon name="hero-cake-mini" />
