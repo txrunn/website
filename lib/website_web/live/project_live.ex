@@ -48,7 +48,7 @@ defmodule WebsiteWeb.ProjectLive do
     case HTTPoison.get(url, headers) do
       {:ok, %{status_code: 200, body: body}} ->
         workflow_runs = Jason.decode!(body)
-        if hd(workflow_runs["workflow_runs"]) do
+        if workflow_runs["workflow_runs"] != [] && hd(workflow_runs["workflow_runs"]) do
           latest_workflow_run_id = hd(workflow_runs["workflow_runs"])["id"]
           url = "https://api.github.com/repos/#{repo_full_name}/actions/runs/#{latest_workflow_run_id}/jobs"
         case HTTPoison.get(url, headers) do
