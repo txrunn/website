@@ -18,6 +18,7 @@ defmodule WebsiteWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :home)
+    live("/projects", ProjectLive)
   end
 
   # Other scopes may use custom stacks.
