@@ -1,14 +1,16 @@
-<!-- Example Heex code for displaying a grid of GitHub repos -->
-
 <!-- Define a wrapper element to hold the repo grid -->
 <div class="repo-grid">
 
   <!-- Use a loop to iterate through each repository and display it in a grid cell -->
   <%= for repo <- @repos do %>
-    <a href="<%= repo.html_url %>" class="repo-cell">
-      <h3 class="repo-name"><%= repo.name %></h3>
-      <p class="repo-description"><%= repo.description || "No description available" %></p>
-      <p class="repo-language"><%= repo.language || "Unknown" %></p>
+    <a href="<%= @selected_repo.html_url. %>" class="repo-cell">
+
+      <h3 class="repo-name">{repo.name}</h3>
+
+      <p class="repo-description">{ repo.description || "No description available" }</p>
+
+      <p class="repo-language"><%= repo.language || "markdown" %></p>
+
     </a>
   <% end %>
 

@@ -4,13 +4,13 @@ defmodule WebsiteWeb.ProjectLive do
   @impl true
   def mount(_params, _session, socket) do
     {:ok, repos} = fetch_repos()
-    assign(socket, :repos, repos)
+    {:ok, assign(socket, :repos, repos)}
   end
 
-  def handle_event("refresh", _, socket) do
+  def handle_event("refresh", _seession, socket) do
     case fetch_repos() do
       {:ok, repos} -> {:noreply, assign(socket, :repos, repos)}
-      {:error, _} -> {:noreply, socket}
+      {:error, _session} -> {:noreply, socket}
     end
   end
 
@@ -27,22 +27,5 @@ defmodule WebsiteWeb.ProjectLive do
       _ ->
         {:error, "Unknown error"}
     end
-  end
-
-  defp render_repo(repo) do
-    """
-    <div class="repo-card">
-      <a href="#{repo["html_url"]}" target="_blank" class="repo-link">#{repo["name"]}</a>
-      <p>#{repo["description"] || ""}</p>
-    </div>
-    """
-  end
-
-  def render(assigns) do
-    """
-    <div class="repos-grid">
-      #{for repo <- assigns.repos, do: render_repo(repo)}
-    </div>
-    """
   end
 end
