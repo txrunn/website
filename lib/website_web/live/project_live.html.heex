@@ -1,15 +1,15 @@
-<div class="project-container">
-  <%= for project <- @projects do %>
-    <%= render_card(project) %>
-  <% end %>
-</div>
+<!-- Example Heex code for displaying a grid of GitHub repos -->
 
-<%= if @selected_repo do %>
-  <div class="readme-container">
-    <div class="readme-header">
-      <h2><%= @selected_repo.name %> README</h2>
-      <button class="close-btn" phx-click="close_readme">Close</button>
-    </div>
-    <div class="readme-content"><%= @selected_repo.html %></div>
-  </div>
-<% end %>
+<!-- Define a wrapper element to hold the repo grid -->
+<div class="repo-grid">
+
+  <!-- Use a loop to iterate through each repository and display it in a grid cell -->
+  <%= for repo <- @repos do %>
+    <a href="<%= repo.html_url %>" class="repo-cell">
+      <h3 class="repo-name"><%= repo.name %></h3>
+      <p class="repo-description"><%= repo.description || "No description available" %></p>
+      <p class="repo-language"><%= repo.language || "Unknown" %></p>
+    </a>
+  <% end %>
+
+</div>
