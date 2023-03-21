@@ -4,12 +4,3 @@
   <% end %>
 </div>
 
-<%= if @selected_repo do %>
-  <div class="readme-container">
-    <div class="readme-header">
-      <h2><%= @selected_repo.name %> README</h2>
-      <button class="close-btn" phx-click="close_readme">Close</button>
-    </div>
-    <div class="readme-content"><%= @selected_repo.html %></div>
-  </div>
-<% end %>
