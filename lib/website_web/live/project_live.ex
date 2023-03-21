@@ -56,28 +56,31 @@ defmodule WebsiteWeb.ProjectLive do
     end
   end
   
-  
-  
   defp render_card(project) do
-    repo_full_name = project["full_name"]
-    
-    ~s"""
-    <div class="project-card" phx-click="view_readme" phx-value-repo="#{repo_full_name}">
-      <h3><%= project["name"] %></h3>
-      <p><%= project["description"] || "" %></p
-    </div>
-    """
-  end
+       end
 
-    def render(assigns) do
+  def render(assigns) do
     selected_repo = assigns[:selected_repo]
 
     projects = assigns[:projects] || []
     card_elements =
-      for project <- projects, do: render_card(project)
+      for project <- projects, do: 
+        repo_full_name = project["full_name"]
+
+        ~H"""
+        <div class="project-card" phx-click="view_readme" phx-value-repo="#{repo_full_name}">
+          <h3>#{repo_full_name}</h3>
+        </div>
+        """
+
 
     ~H"""
-    
+    <div class="project-grid">
+      <%= for element <- card_elements, do: element %>
+    </div>
+
+
+    <button phx-click="refresh">Refresh</button>
     """
   end
 end
