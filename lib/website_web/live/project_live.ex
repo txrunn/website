@@ -56,9 +56,6 @@ defmodule WebsiteWeb.ProjectLive do
     end
   end
   
-  defp render_card(project) do
-       end
-
   def render(assigns) do
     selected_repo = assigns[:selected_repo]
 
