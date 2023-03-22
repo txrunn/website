@@ -1,17 +1,14 @@
-<!-- Define a wrapper element to hold the repo grid -->
-<div class="repo-grid">
-
-  <!-- Use a loop to iterate through each repository and display it in a grid cell -->
-  <%= for repo <- @repos do %>
-    <a href="<%= @selected_repo.html_url. %>" class="repo-cell">
-
-      <h3 class="repo-name">{repo.name}</h3>
-
-      <p class="repo-description">{ repo.description || "No description available" }</p>
-
-      <p class="repo-language"><%= repo.language || "markdown" %></p>
-
-    </a>
-  <% end %>
-
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyAppWeb</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= live_title @view_module, "GitHub Repos" %>
+    <%= live_metas @view_module %>
+    <%= live_assets @view_module %>
+  </head>
+  <body>
+    <%= live_render(@conn, MyAppWeb.ProjectLive) %>
+  </body>
+</html>
