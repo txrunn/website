@@ -1,12 +1,14 @@
 defmodule WebsiteWeb.ProjectLive do
   use Phoenix.LiveView
 
+  # Mount the LiveView and fetch initial projects
   @impl true
   def mount(_params, _session, socket) do
     {:ok, socket} = fetch_projects(socket)
     {:ok, socket}
   end
 
+  # Handle the "refresh" event to reload projects
   @impl true
   def handle_event("refresh", _, socket) do
     case fetch_projects(socket) do
@@ -17,6 +19,7 @@ defmodule WebsiteWeb.ProjectLive do
     end
   end
 
+  # Handle the "view_readme" event to fetch and display README of a repo
   def handle_event("view_readme", %{"repo" => repo}, socket) do
     markdown = fetch_repo_readme(repo)
     html = Jason.decode!(HTTPoison.post("https://api.github.com/markdown", %{
@@ -25,9 +28,10 @@ defmodule WebsiteWeb.ProjectLive do
       context: repo
     }, [{"User-Agent", "website"}, {"Accept", "application/vnd.github.v3.text+html"}]).body) |> String.trim
     {:noreply, assign(socket, :selected_repo, %{name: repo, html: html})}
-    end
+  end
 
-    defp fetch_repo_readme(repo_full_name) do
+  # Fetch README content for a given repo
+  defp fetch_repo_readme(repo_full_name) do
     url = "https://api.github.com/repos/#{repo_full_name}/readme"
     headers = [{"User-Agent", "website"}]
     case HTTPoison.get(url, headers) do
@@ -39,12 +43,12 @@ defmodule WebsiteWeb.ProjectLive do
     end
   end
 
-
-
+  # Handle the "close_readme" event to close the README view
   def handle_event("close_readme", _, socket) do
     {:noreply, assign(socket, :selected_repo, nil)}
   end
 
+  # Fetch projects from GitHub API
   def fetch_projects(socket) do
     url = "https://api.github.com/users/txrunn/repos"
     headers = [{"User-Agent", "website"}]
@@ -57,10 +61,12 @@ defmodule WebsiteWeb.ProjectLive do
     end
   end
 
+  # Render the LiveView
   @impl true
   def render(assigns) do
     projects = assigns[:projects] || []
 
+    # Generate project cards
     card_elements = for project <- projects do
       repo_full_name = project["full_name"]
 
@@ -71,6 +77,7 @@ defmodule WebsiteWeb.ProjectLive do
       """
     end
 
+    # Assign card elements for rendering
     assigns = assign(assigns, :card_elements, card_elements)
 
     ~H"""
