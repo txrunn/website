@@ -7,25 +7,26 @@ defmodule WebsiteWeb.ProjectLive do
     {:ok, socket}
   end
 
+  @impl true
   def handle_event("refresh", _, socket) do
     case fetch_projects(socket) do
       {:ok, new_socket} ->
         {:noreply, assign(new_socket, :projects, new_socket.assigns[:projects])}
-      {:error, reason} ->
+      {:error, _reason} ->
         {:noreply, socket}
     end
   end
- 
+
   def handle_event("view_readme", %{"repo" => repo}, socket) do
     markdown = fetch_repo_readme(repo)
     html = Jason.decode!(HTTPoison.post("https://api.github.com/markdown", %{
       text: markdown,
       mode: "gfm",
       context: repo
-    }, [{"User-Agent", "website"}, {"Accept", "application/vnd.github.v3.text+html"}]).body) |> String.strip
+    }, [{"User-Agent", "website"}, {"Accept", "application/vnd.github.v3.text+html"}]).body) |> String.trim
     {:noreply, assign(socket, :selected_repo, %{name: repo, html: html})}
     end
-    
+
     defp fetch_repo_readme(repo_full_name) do
     url = "https://api.github.com/repos/#{repo_full_name}/readme"
     headers = [{"User-Agent", "website"}]
@@ -55,29 +56,30 @@ defmodule WebsiteWeb.ProjectLive do
         {:ok, socket}
     end
   end
-  
+
+  @impl true
   def render(assigns) do
-    selected_repo = assigns[:selected_repo]
-
     projects = assigns[:projects] || []
-    card_elements =
-      for project <- projects, do: 
-        repo_full_name = project["full_name"]
 
-        ~H"""
-        <div class="project-card" phx-click="view_readme" phx-value-repo="#{repo_full_name}">
-          <h3>#{repo_full_name}</h3>
-        </div>
-        """
+    card_elements = for project <- projects do
+      repo_full_name = project["full_name"]
 
+      ~H"""
+      <div class="project-card" phx-click="view_readme" phx-value-repo="#{repo_full_name}">
+        <h3>#{repo_full_name}</h3>
+      </div>
+      """
+    end
+
+    assigns = assign(assigns, :card_elements, card_elements)
 
     ~H"""
     <div class="project-grid">
-      <%= for element <- card_elements, do: element %>
+      <%= for element <- @card_elements, do: element %>
     </div>
-
 
     <button phx-click="refresh">Refresh</button>
     """
   end
+
 end

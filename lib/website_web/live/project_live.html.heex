@@ -1,6 +1,6 @@
-<div class="project-container">
-  <%= for project <- @projects do %>
-    <%= render_card(project) %>
-  <% end %>
-</div>
-
+<!DOCTYPE html>
+<html lang="en" style="scrollbar-gutter: stable;">
+  <div class="project-container">
+    <%= for element <- @card_elements, do: element %>
+  </div>
+</html>
